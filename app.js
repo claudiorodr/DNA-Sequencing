@@ -15,7 +15,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + "/index.html")) //Getting HT
 app.post('/', function (req, res) { //When posting from this route, from the form
     var filename = req.files.file.name //Uploaded filename
     var path = './files/' + filename //Move file to local server path
-    var search = req.body.text //Getting sequence inserted
+    var search = req.body.text.replace(/ /g, '') //Getting sequence inserted
     
     req.files.file.mv(path, function (err) { //Moving file to specified local path
           if (err) {
@@ -23,17 +23,21 @@ app.post('/', function (req, res) { //When posting from this route, from the for
           }
           else {
               readDNA(path, search) //if successfully completed start reading file
+              const file = `${__dirname}/filesWrite.txt`;
+            //   res.download(file); // Set disposition and send it.
           }
       })
 })
 
 function readDNA(path,search) {
-    fs.readFile(path, 'utf8', function (err, contents) { //Opening file 
-        
-        var delta = [] //Array used to store Delta X values
-        var indexes = [] //Array used to store indexes values
 
-        var searchArray = search.split(','); //Parsing user's sequence into array
+    var delta = [] //Array used to store Delta X values
+    var indexes = [] //Array used to store indexes values
+    var searchArray = search.split(','); //Parsing user's sequence into array
+    
+    fs.readFile(path, 'utf8', function (err, contents) { //Opening file 
+
+        // indexes.push(0,contents.length - 1)
         
         for (let i = 0; i < searchArray.length; i++) { // For each of the user's sequence
             
@@ -53,11 +57,21 @@ function readDNA(path,search) {
                     }
                 }
             }
-            
         }
-        console.log("Número de ocorrências: " + indexes.length)
-        console.log("Indices das ocorrencias: " + indexes.sort((a, b) => a - b))
-        console.log("Delta X de cada corte no genoma: " + delta.sort((a, b) => a - b));
-        
+        console.log("Number of occurrences: " + indexes.length)
+        console.log("Restriction map of points (X): " + indexes.sort((a, b) => a - b))
+        console.log("Distances between restriction cut points (ΔX): " + delta.sort((a, b) => a - b));
+
+        // fs.writeFile("./filesWrite.txt", 
+        //     "Número de ocorrências: " + indexes.length + "\n" +
+        //     "Indices das ocorrencias: " + indexes.sort((a, b) => a - b) + "\n" +
+        //     "Delta X de cada corte no genoma: " + delta.sort((a, b) => a - b) + "\n"
+        // , function (err) {
+        //     if (err) {
+        //         return console.log(err);
+        //     }
+        //     console.log("The file was saved!");
+        // }); 
     });
+
 }

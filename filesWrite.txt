@@ -1,0 +1,3 @@
+Número de ocorrências: 1
+Indices das ocorrencias: 393
+Delta X de cada corte no genoma: 
