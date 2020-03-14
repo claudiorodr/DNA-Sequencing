@@ -63,9 +63,9 @@ function readDNA(path,search) {
         console.log("Distances between restriction cut points (ΔX): " + delta.sort((a, b) => a - b));
 
         fs.writeFile("./filesWrite.txt", 
-            "Número de ocorrências: " + indexes.length + "\n" +
-            "Indices das ocorrencias: " + indexes.sort((a, b) => a - b) + "\n" +
-            "Delta X de cada corte no genoma: " + delta.sort((a, b) => a - b) + "\n"
+            "Number of occurrences: " + indexes.length + "\n" +
+            "Restriction map of points (X): " + indexes.sort((a, b) => a - b) + "\n" +
+            "Distances between restriction cut points (ΔX): " + delta.sort((a, b) => a - b) + "\n"
         , function (err) {
             if (err) {
                 return console.log(err);
