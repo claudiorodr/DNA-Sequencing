@@ -4,6 +4,7 @@ const upload = require('express-fileupload')
 const app = express()
 const port = 3000
 
+app.use(express.static(__dirname + '/public'));
 
 app.use(upload()) // In order to use file upload module
 
@@ -29,28 +30,33 @@ app.post('/', function (req, res) { //When posting from this route, from the for
 function readDNA(path,search) {
     fs.readFile(path, 'utf8', function (err, contents) { //Opening file 
         
-        var indices = []
-        var idx = contents.indexOf(search)
+        var delta = [] //Array used to store Delta X values
+        var indexes = [] //Array used to store indexes values
+
+        var searchArray = search.split(','); //Parsing user's sequence into array
         
-        while (idx != -1) {
-            indices.push(idx);
-            idx = contents.indexOf(search, idx + 1)
-        }
-        
-        console.log("Número de ocorrências: " + indices.length)
-        console.log("Indices das ocorrencias: " + indices)
-        var b = indices.map(Number)
-        
-        var delta = []
-        
-        for (let i = 0; i < b.length; i++) {
-            for (let j = 0; j < b.length; j++) {
-                if (b[j] - b[i] > 0) {
-                    delta.push(b[j] - b[i])
+        for (let i = 0; i < searchArray.length; i++) { // For each of the user's sequence
+            
+            var idx = contents.indexOf(searchArray[i]) //Get first index of sequence in file
+            
+            while (idx != -1) {  //while hasn't reach the end of the file
+                indexes.push(idx); //push to array next index
+                idx = contents.indexOf(searchArray[i], idx + 1) //Start searching after the result
+            }
+            
+            var index = indexes.map(Number) //Parsing the index array to Integer array
+            
+            for (let i = 0; i < index.length; i++) {
+                for (let j = 0; j < index.length; j++) {
+                    if (index[j] - index[i] > 0) {
+                        delta.push(index[j] - index[i])
+                    }
                 }
             }
+            
         }
-
+        console.log("Número de ocorrências: " + indexes.length)
+        console.log("Indices das ocorrencias: " + indexes.sort((a, b) => a - b))
         console.log("Delta X de cada corte no genoma: " + delta.sort((a, b) => a - b));
         
     });
