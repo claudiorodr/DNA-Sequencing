@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/claudiorodr/DNA-Sequencing/issues"
   },
-  "homepage": "https://github.com/claudiorodr/DNA-Sequencing#readme"
+  "homepage": "https://github.com/claudiorodr/DNA-Sequencing#readme",
+  "engines": {
+    "node": "v12.14.1"
+  }
 }
