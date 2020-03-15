@@ -24,7 +24,7 @@ app.post('/', function (req, res) { //When posting from this route, from the for
           else {
               readDNA(path, search) //if successfully completed start reading file
               const file = `${__dirname}/filesWrite.txt`;
-            //   res.download(file); // Set disposition and send it.
+              res.download(file); // Set disposition and send it.
           }
       })
 })
