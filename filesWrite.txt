@@ -1,3 +1,3 @@
-Number of occurrences: 4
-Restriction map of points (X): 1,23,105,319,393,394
-Distances between restriction cut points (ΔX): 2,2,3,3,4,5
+Number of occurrences: 7
+Restriction map of points (X): 73,88,191,238,304,377,810
+Distances between restriction cut points (ΔX): 15,47,66,73,103,113,118,139,150,165,186,216,231,289,304

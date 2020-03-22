@@ -59,6 +59,8 @@ function readDNA(path, search) {
 
     var delta = [] //Array used to store Delta X values
     var indexes = [] //Array used to store indexes values
+    var indexSearch = [] //Array used to store indexes values
+    var index = [] //Array used to store indexes values
     var searchArray = search.split(','); //Parsing user's sequence into array
 
     var contents = fs.readFileSync(path, 'utf8') //Opening file 
@@ -71,11 +73,13 @@ function readDNA(path, search) {
 
         while (idx != -1) { //while hasn't reach the end of the file
             indexes.push(idx); //push to array next index
+            indexSearch.push(idx); //push to array next index
             idx = contents.indexOf(searchArray[i], idx + 1) //Start searching after the result
         }
 
-        var index = indexes.map(Number) //Parsing the index array to Integer array
-
+        index = indexSearch.map(Number) //Parsing the index array to Integer array
+        console.log(index + 'this index array');
+        
         for (let i = 0; i < index.length; i++) {
             for (let j = 0; j < index.length; j++) {
                 if (index[j] - index[i] > 0) {
@@ -83,13 +87,14 @@ function readDNA(path, search) {
                 }
             }
         }
+        indexSearch = []
     }
 
-    // n = indexes.length
-    n = 4
+    n = indexes.length
     x = indexes.sort((a, b) => a - b)
-    // dx = delta.sort((a, b) => a - b)
-    dx = [2, 2, 3, 3, 4, 5]
+    dx = delta.sort((a, b) => a - b)
+    console.log(dx + 'This is dx');
+    
 
     console.log("Number of occurrences: " + n)
     console.log("Restriction map of points (X): " + x)
