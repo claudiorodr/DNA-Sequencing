@@ -44,8 +44,6 @@ module.exports = {
                 }
                 delta = []
             }
-            console.log('Terminated');
-
         }
     }
 }

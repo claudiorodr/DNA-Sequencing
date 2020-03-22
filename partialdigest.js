@@ -22,7 +22,7 @@ module.exports = {
                     "----------------------------- Partial Digest Algorithm ----------------------------- \n" +
                     "Restriction map of points (X): " + Xpartial + "\n"
                 );
-                res.download(`${__dirname}/filesWrite.txt`); // Set disposition and send it.Ç
+                res.download(`${__dirname}/filesWrite.txt`); // Set disposition and send it.
                 hasFinished = true
             } else if (Lpartial.length > 0) {
                 y = Lpartial[Lpartial.length - 1]
@@ -33,22 +33,21 @@ module.exports = {
                     console.log(deltaY);
                 });
 
-                Lpartial.pop()
-
-                deltaY.forEach(element => {
-                    console.log(Lpartial.includes(element));
-
-                    if (Lpartial.includes(element)) {
-                        Xpartial.push(y)
-                        Xpartial = Xpartial.filter((a, b) => Xpartial.indexOf(a) === b)
+                let subset = (arr, target) => target.every(v => arr.includes(v));
+                console.log(subset(Lpartial, deltaY));
+                
+                if (subset(Lpartial, deltaY)) {
+                    Xpartial.push(y)
+                    Xpartial = Xpartial.filter((a, b) => Xpartial.indexOf(a) === b)
+                    deltaY.forEach(element => {
                         index = Lpartial.indexOf(element)
                         Lpartial.splice(index, 1)
-                        deltaY = []
-                        console.log(Xpartial.sort((a, b) => a - b) + '\n' + 'first If');
-                        console.log(Lpartial.sort((a, b) => a - b) + '\n' + 'first If');
-                        hasElements = true
-                    }
-                });
+                    });
+                    console.log(Xpartial.sort((a, b) => a - b) + '\n' + ' first If');
+                    console.log(Lpartial.sort((a, b) => a - b) + '\n' + ' first If');
+                    hasElements = true
+                }
+                deltaY = []
 
                 if (hasElements) {
                     place(Lpartial, Xpartial)
@@ -58,23 +57,28 @@ module.exports = {
 
                 Xpartial.forEach(element => {
                     deltaY.push(Math.abs(widthy - element))
-                    // console.log(deltaY);
+                    console.log(deltaY);
 
                 });
-
-                deltaY.forEach(element => {
-                    if (Lpartial.includes(element)) {
-                        Xpartial.push(widthy)
-                        Xpartial = Xpartial.filter((a, b) => Xpartial.indexOf(a) === b)
+                console.log(subset(Lpartial, deltaY));
+                
+                if (subset(Lpartial, deltaY)) {
+                    Xpartial.push(widthy)
+                    Xpartial = Xpartial.filter((a, b) => Xpartial.indexOf(a) === b)
+                    deltaY.forEach(element => {
                         index = Lpartial.indexOf(element)
                         Lpartial.splice(index, 1)
-                        deltaY = []
-                        console.log(Xpartial.sort((a, b) => a - b) + '\n' + 'Second If');
-                        console.log(Lpartial.sort((a, b) => a - b) + '\n' + 'Second If');
-                    }
-                });
+                    });
+                    console.log(Xpartial.sort((a, b) => a - b) + '\n' + ' second If');
+                    console.log(Lpartial.sort((a, b) => a - b) + '\n' + ' second If');
+                    hasElements = true
+                }
 
-                place(Lpartial, Xpartial)
+                deltaY = []
+                if (hasElements) {
+                    place(Lpartial, Xpartial)
+                }
+
             }
         }
     },
