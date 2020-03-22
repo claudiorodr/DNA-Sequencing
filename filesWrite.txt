@@ -1,3 +1,5 @@
 Number of occurrences: 7
-Restriction map of points (X): 73,88,191,238,304,377,810
-Distances between restriction cut points (ΔX): 15,47,66,73,103,113,118,139,150,165,186,216,231,289,304
+Restriction map of points (X): 0,73,88,191,238,304,377,810,999
+Distances between restriction cut points (ΔX): 15,47,66,73,73,88,103,113,118,139,150,165,186,189,191,216,231,238,289,304,304,377,433,506,572,619,622,695,722,737,761,808,810,911,926,999
+----------------------------- Partial Digest Algorithm ----------------------------- 
+Restriction map of points (X): 0,493,622,695,737,761,808,810,911,926,999

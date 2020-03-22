@@ -1,6 +1,6 @@
 module.exports = function combinations(set, k) {
     var i, j, combs, head, tailcombs;
-    
+
     // console.log(set + ' this is set and this is k' + k);
 
     // There is no way to take e.g. sets of 5 elements from
@@ -20,6 +20,7 @@ module.exports = function combinations(set, k) {
         for (i = 0; i < set.length; i++) {
             combs.push([set[i]]);
         }
+        module.exports.combs = combs
         return combs;
     }
 
@@ -37,7 +38,7 @@ module.exports = function combinations(set, k) {
     }
     // console.log('----------------------\n' + combs);
     // console.log(combs);
-    
+
     module.exports.combs = combs
     return combs;
 }

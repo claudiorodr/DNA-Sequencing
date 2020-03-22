@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 module.exports = {
-    main: function (n, x, dx) {
+    main: function (n, x, dx, res) {
 
         var y = 0
         var Lpartial = dx
@@ -22,6 +22,7 @@ module.exports = {
                     "----------------------------- Partial Digest Algorithm ----------------------------- \n" +
                     "Restriction map of points (X): " + Xpartial + "\n"
                 );
+                res.download(`${__dirname}/filesWrite.txt`); // Set disposition and send it.Ç
                 hasFinished = true
             } else if (Lpartial.length > 0) {
                 y = Lpartial[Lpartial.length - 1]
@@ -30,7 +31,6 @@ module.exports = {
                 Xpartial.forEach(element => {
                     deltaY.push(Math.abs(y - element))
                     console.log(deltaY);
-
                 });
 
                 Lpartial.pop()

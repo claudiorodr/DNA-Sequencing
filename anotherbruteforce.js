@@ -2,18 +2,18 @@ var fs = require('fs');
 var combinations = require('./combinations')
 
 module.exports = {
-    main: function (n, x, dx) {
+    main: function (n, x, dx, res) {
+        var Nbrute = n //receives number of cuts
         var Lbrute = dx
-        var Xbrute = []
-        var M = Lbrute[Lbrute.length - 1]
-        var Nbrute = n
-        var delta = []
-        Lbrute.pop()
-        combinations(Lbrute, Nbrute - 2)
-        Lbrute.push(M)
-        var combs = combinations.combs
+        var Xbrute = [] //we want to calculate X
+        var M = Lbrute[Lbrute.length - 1] //Maximum element in 
+        var delta = [] //Array that will store all cut distances
+        Lbrute.pop() //Taking out length of L
+        combinations(Lbrute, Nbrute) //Call file that calculates all possible combinations of Nbrute integers in the Lbrute array
+        var combs = combinations.combs //Using the result of the previous function
+        Lbrute.push(M) //Putting back the maximum length
+        calculateDX(combs)//calculating the pairwaise distances of all possible combinations
 
-        calculateDX(combs)
 
         function calculateDX(combs) {
             var array = []
@@ -30,18 +30,22 @@ module.exports = {
                         }
                     }
                 }
-                // console.log(delta);
-                // console.log(Lbrute);
 
                 if (JSON.stringify(delta) == JSON.stringify(Lbrute)) {
+                    console.log('Found the solution');
+
                     fs.appendFileSync("./filesWrite.txt",
                         "----------------------------- AnotherBruteForcePDP Algorithm ----------------------------- \n" +
                         "Restriction map of points (X): " + array + "\n"
                     );
+                    res.download(`${__dirname}/filesWrite.txt`); // Set disposition and send it.
 
+                    break;
                 }
                 delta = []
             }
+            console.log('Terminated');
+
         }
     }
 }
