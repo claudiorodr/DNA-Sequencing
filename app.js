@@ -43,7 +43,7 @@ function handleRequest(type, req, res) {
                 readDNA(path, search) //if successfully completed start reading file
             } catch (e) {
                 console.error(e)
-            } 
+            }
             const file = `${__dirname}/filesWrite.txt`;
             if (type == "BruteForceAlgorithm") {
                 brute.main(n, x, dx, res)
@@ -61,7 +61,7 @@ function readDNA(path, search) {
     var searchArray = search.split(','); //Parsing user's sequence into array
     var contents = fs.readFileSync(path, 'utf8') //Opening file 
 
-    indexes.push(0,contents.    length - 1)
+    indexes.push(0, contents.length - 1)
 
     for (let i = 0; i < searchArray.length; i++) { // For each of the user's sequence
 
